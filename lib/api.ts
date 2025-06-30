@@ -11,6 +11,7 @@ interface NoteHubSearchParams {
     search?: string;
     page: number;
     perPage: number;
+    tag?: string | undefined;
   };
   headers: {
     authorization: string;
@@ -21,12 +22,14 @@ const myToken = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
 
 export async function fetchNotes(
   query: string,
-  page: number
+  page: number,
+  tag?: string | undefined
 ): Promise<NoteHubResponse> {
   const noteHubSearchParams: NoteHubSearchParams = {
     params: {
       page,
       perPage: 12,
+      tag,
     },
     headers: {
       authorization: `Bearer ${myToken}`,
